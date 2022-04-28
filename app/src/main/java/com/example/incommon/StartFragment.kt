@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.incommon.databinding.FragmentStartBinding
-import com.example.incommon.module.QuestionsViewModel
+import com.example.incommon.model.QuestionsViewModel
 
 
 class StartFragment : Fragment() {
