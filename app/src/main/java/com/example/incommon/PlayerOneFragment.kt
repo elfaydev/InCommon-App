@@ -6,20 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.incommon.adapter.QuestionAdapter
-import com.example.incommon.databinding.FragmentQuestionsBinding
+import com.example.incommon.databinding.FragmentPlayerOneBinding
 import com.example.incommon.model.QuestionsViewModel
 
 
-class QuestionsFragment : Fragment() {
+class PlayerOneFragment : Fragment() {
 
     val viewModel: QuestionsViewModel by activityViewModels()
 
     private lateinit var recyclerView: RecyclerView
-    private var _binding: FragmentQuestionsBinding? = null
+    private var _binding: FragmentPlayerOneBinding? = null
     val binding get() = _binding!!
     private lateinit var adapter: QuestionAdapter
 
@@ -28,7 +30,7 @@ class QuestionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val fragmentBinding = FragmentQuestionsBinding.inflate(inflater, container, false)
+        val fragmentBinding = FragmentPlayerOneBinding.inflate(inflater, container, false)
         _binding = fragmentBinding
         return fragmentBinding.root
     }
@@ -37,10 +39,21 @@ class QuestionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = QuestionAdapter(viewModel.listOfQuestions, viewModel.listOfAnswers, requireContext())
+        adapter = QuestionAdapter(viewModel.listOfQuestions, viewModel.listOfAnswersOne, requireContext())
         recyclerView.adapter = adapter
+        binding.playerOneName.text = viewModel.playerOneName
         adapter.getAnswers { updatedListOfAnswers ->
-            viewModel.listOfAnswers = updatedListOfAnswers
+            viewModel.listOfAnswersOne = updatedListOfAnswers
+        }
+
+        binding.nextPage.setOnClickListener {
+            if(viewModel.areAllQuestionsAnsweredOne()){
+                findNavController().navigate(R.id.action_playerOneFragment_to_playerTwoFragment)
+            }else{
+                val duration = Toast.LENGTH_SHORT
+                val toast = Toast.makeText(requireContext(), "Answer all the questions", duration)
+                toast.show()
+            }
         }
 
 

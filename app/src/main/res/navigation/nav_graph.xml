@@ -6,17 +6,30 @@
     app:startDestination="@id/startFragment">
 
     <fragment
-        android:id="@+id/questionsFragment"
-        android:name="com.example.incommon.QuestionsFragment"
-        android:label="fragment_questions"
-        tools:layout="@layout/fragment_questions" />
-    <fragment
         android:id="@+id/startFragment"
         android:name="com.example.incommon.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
-            android:id="@+id/action_startFragment_to_questionsFragment"
-            app:destination="@id/questionsFragment" />
+            android:id="@+id/action_startFragment_to_playerOneFragment"
+            app:destination="@id/playerOneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerOneFragment"
+        android:name="com.example.incommon.PlayerOneFragment"
+        android:label="fragment_player_one"
+        tools:layout="@layout/fragment_player_one" >
+        <action
+            android:id="@+id/action_playerOneFragment_to_playerTwoFragment"
+            app:destination="@id/playerTwoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playerTwoFragment"
+        android:name="com.example.incommon.PlayerTwoFragment"
+        android:label="fragment_player_two"
+        tools:layout="@layout/fragment_player_two" >
+        <action
+            android:id="@+id/action_playerTwoFragment_to_playerOneFragment"
+            app:destination="@id/playerOneFragment" />
     </fragment>
 </navigation>
